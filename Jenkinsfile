@@ -1,31 +1,38 @@
- agent any
+pipeline {
+    agent any
 
-   stages {
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
 
-       stage('Build') {
-           steps {
-               echo 'Build Step'
-               sleep 10
-           }
-       }
+        stage('Build') {
+            steps {
+                echo 'Running build stage...'
+            }
+        }
 
-       stage('Test') {
-           steps {
-               echo 'Test step'
-           }
-       }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
 
-       stage('Deploy') {
-           steps {
-               echo 'Deploy Step'
-               sleep 10
-           }
-       }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+    }
 
-       stage('Docker') {
-           steps {
-               echo 'Image step'
-           }
-       }
-   }
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
 }
