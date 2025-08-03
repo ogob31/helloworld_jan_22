@@ -36,11 +36,12 @@ pipeline {
         }
     }
 }
+
 pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME'  // Change 'M2_HOME' if your Maven tool in Jenkins has a different name
+        maven 'M2_HOME' // or your actual tool name
     }
 
     stages {
@@ -52,16 +53,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Running build stage...'
-                sh 'mvn clean'
-                sh 'mvn install'
-                sh 'mvn package'
+                sh 'mvn clean install package'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
                 sh 'mvn test'
             }
         }
@@ -69,24 +66,22 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                sleep 5
             }
         }
 
         stage('Docker') {
             steps {
-                echo 'Docker image stage (placeholder)'
-                // Example: sh 'docker build -t my-image .'
+                echo 'Docker build step placeholder'
             }
         }
     }
 
     post {
         success {
-            echo '✅ Pipeline completed successfully.'
+            echo '✅ Pipeline completed successfully'
         }
         failure {
-            echo '❌ Pipeline failed.'
+            echo '❌ Pipeline failed'
         }
     }
 }
