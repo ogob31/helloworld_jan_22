@@ -40,13 +40,19 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.5'  // 👈 Make sure this matches the name in Jenkins Global Tool Configuration
+        maven 'M2_HOME'  // Replace with the exact Maven name configured in Jenkins
     }
 
     stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Starting Build...'
+                echo 'Running build stage...'
                 sh 'mvn clean'
                 sh 'mvn install'
                 sh 'mvn package'
@@ -55,33 +61,32 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running Tests...'
+                echo 'Running tests...'
                 sh 'mvn test'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Starting Deploy...'
+                echo 'Deploying application...'
                 sleep 10
-                echo 'Deploy step complete'
             }
         }
 
         stage('Docker') {
             steps {
                 echo 'Building Docker image...'
-                // You can add: sh 'docker build -t your-image-name .'
+                // Example: sh 'docker build -t my-image .'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline executed successfully 🎉'
+            echo '✅ Pipeline completed successfully.'
         }
         failure {
-            echo 'Pipeline failed ❌'
+            echo '❌ Pipeline failed.'
         }
     }
 }
