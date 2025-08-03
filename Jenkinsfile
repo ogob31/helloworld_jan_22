@@ -38,50 +38,59 @@ pipeline {
 }
 
 pipeline {
-    agent any
 
-    tools {
-        maven 'M2_HOME' // or your actual tool name
-    }
+   agent any
 
-    stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
+   tools{
 
-        stage('Build') {
-            steps {
-                sh 'mvn clean install package'
-            }
-        }
+       maven 'M2_HOME'
 
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
+   }
+   stages {
 
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application...'
-            }
-        }
+       stage('Build') {
 
-        stage('Docker') {
-            steps {
-                echo 'Docker build step placeholder'
-            }
-        }
-    }
+           steps {
 
-    post {
-        success {
-            echo '✅ Pipeline completed successfully'
-        }
-        failure {
-            echo '❌ Pipeline failed'
-        }
-    }
+               sh 'mvn clean'
+
+               sh 'mvn install'
+
+               sh 'mvn package'
+
+           }
+
+       }
+
+       stage('Test') {
+
+           steps {
+
+               sh 'mvn test'
+
+           }
+
+       }
+
+       stage('Deploy') {
+
+           steps {
+
+               echo 'Deploy Step'
+
+               sleep 10
+
+           }
+
+       }
+
+       stage('Docker') {
+
+           steps {
+
+               echo 'Image step'
+
+           }
+       }
+   }
 }
