@@ -40,7 +40,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'M2_HOME'  // Replace with the exact Maven name configured in Jenkins
+        maven 'M2_HOME'  // Change 'M2_HOME' if your Maven tool in Jenkins has a different name
     }
 
     stages {
@@ -69,13 +69,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                sleep 10
+                sleep 5
             }
         }
 
         stage('Docker') {
             steps {
-                echo 'Building Docker image...'
+                echo 'Docker image stage (placeholder)'
                 // Example: sh 'docker build -t my-image .'
             }
         }
